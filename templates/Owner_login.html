@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/owner_login.css') }}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('index') }}">Aujiga</a>
+            </h1>
+            <nav class="container">
+              <ul class="fr">
+                <li><a href="{{ url_for('login') }}">Login</a>|</li>
+              </ul>
+            </nav>
+            <div class="search fl"> 
+                <input type="search" placeholder="Search item">
+            </div>
+            <div class="cart fl">
+                <span>0</span>
+            </div>
+        </div>      
+    </header>
+    <div class="wrapper">
+        <div class="container">
+             <!-- Flash message code start -->
+            <div id="flash-message">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {{ messages[0] }}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <!-- Flash message code end -->
+            <h2>Login</h2>
+            <form id="login-form" method="POST" action="{{ url_for('owner_login') }}">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phonenumber">Phone Number</label>
+                    <input type="tel" id="phonenumber" name="phonenumber" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyname">Company Name</label>
+                    <input type="text" id="companyname" name="companyname" placeholder="Enter your company name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="email" id="username" name="username" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" id="login-button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for flash messages start -->
+    <script>
+    // Handle login button click event
+    document.getElementById('login-button').addEventListener('click', function() {
+        var firstname = document.getElementById('firstname').value;
+        var lastname = document.getElementById('lastname').value;
+        var phonenumber = document.getElementById('phonenumber').value;
+        var companyname = document.getElementById('companyname').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // Send login request
+        fetch('{{ url_for('owner_login') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'firstname=' + encodeURIComponent(firstname) +
+                  '&lastname=' + encodeURIComponent(lastname) +
+                  '&phonenumber=' + encodeURIComponent(phonenumber) +
+                  '&companyname=' + encodeURIComponent(companyname) +
+                  '&username=' + encodeURIComponent(username) +
+                  '&password=' + encodeURIComponent(password)
+        })
+        .then(function(response) {
+            if (response.ok) {
+                // Login successful
+                return response.text().then(function(message) {
+                    document.getElementById('flash-message').innerHTML = message;
+                    document.getElementById('flash-message').classList.remove('error');
+                    document.getElementById('flash-message').style.display = 'block';
+                });
+            } else {
+                // Login failed
+                return response.text().then(function(errorMessage) {
+                    document.getElementById('flash-message').innerHTML = errorMessage;
+                    document.getElementById('flash-message').classList.add('error');
+                    document.getElementById('flash-message').style.display = 'block';
+                });
+            }
+        })
+        .catch(function(error) {
+            console.error('An error occurred:', error);
+        });
+    });
+    </script>
+    <!-- JavaScript for flash messages end -->
+</body>
+</html>

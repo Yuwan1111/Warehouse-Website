@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Member Center</title>
+    <link rel="shortcut icon" href="" type="image/x-icon"/>
+    <meta name="description" content=""/> <!-- 内容使网站受浏览器关注-->
+    <meta name="keywords" content=""/>  <!-- 内容使得关键字搜索-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/member_center.css') }}"/>
+</head>
+<body>
+    <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('order') }}">Aujiga</a>
+            </h1>
+            <nav class="container">
+                <ul class="fr">
+                    <li><a href="{{ url_for('my_orders') }}">My Orders</a>|</li>
+                    <li><a href="{{ url_for('member_center') }}">Member Center</a>|</li>
+                </ul>
+                {% if firstname %}
+                <p>Welcome, {{ firstname }}!</p>
+                {% endif %}
+            </nav>
+            <div class="search fl">
+                <input type="search" placeholder="Search item">
+            </div>
+           
+        </div>
+    </header>
+    <main>
+        <h1>Welcome to the Member Center</h1>
+        <h3>User Information:</h3>
+        <form method="POST" action="{{ url_for('member_center') }}">
+            <p>First Name: <span id="firstname" data-value="{{ firstname }}">{{ firstname }}</span> <input type="text" id="firstname-input" value="{{ firstname }}" style="display: none;"> <button type="button" onclick="editField('firstname')">Edit</button></p>
+            <p>Last Name: <span id="lastname" data-value="{{ lastname }}">{{ lastname }}</span> <input type="text" id="lastname-input" value="{{ lastname }}" style="display: none;"> <button type="button" onclick="editField('lastname')">Edit</button></p>
+            <p>Phone Number: <span id="phonenumber" data-value="{{ phonenumber }}">{{ phonenumber }}</span> <input type="text" id="phonenumber-input" value="{{ phonenumber }}" style="display: none;"> <button type="button" onclick="editField('phonenumber')">Edit</button></p>
+            <p>Email: <span id="username" data-value="{{ username }}">{{ username }}</span></p>
+            <p>Password: <span id="password" data-value="********">********</span> <button type="button" onclick="editField('password')">Edit</button></p>
+        
+            {% if password_edit %}
+            <p>Current Password: <input type="password" id="current-password-input" name="current_password" required></p>
+            {% endif %}
+        
+            <input type="submit" value="Save" style="display: none" id="save-button">
+        </form>
+        <!-- 根据需要添加其他内容和样式 -->
+    </main>
+
+    <script>
+        function editField(field) {
+            const fieldElement = document.getElementById(field);
+            const fieldValue = fieldElement.dataset.value;
+    
+            if (field === "username" || field === "password") {
+                return; // 不允许编辑用户名和密码
+            }
+    
+            const inputElement = document.createElement("input");
+            inputElement.type = "text";
+            inputElement.value = fieldValue;
+            inputElement.id = field + "-input";
+            fieldElement.innerHTML = "";
+            fieldElement.appendChild(inputElement);
+    
+            const saveButton = document.getElementById("save-button");
+            saveButton.style.display = "inline";
+    
+            const editButtons = document.querySelectorAll("button[onclick^='editField']");
+            editButtons.forEach((button) => {
+                button.disabled = true;
+            });
+        }
+    
+        function refreshPage() {
+            window.location.reload();
+        }
+    
+        document.getElementById("save-button").addEventListener("click", function(event) {
+            event.preventDefault();
+    
+            const saveButton = document.getElementById("save-button");
+            saveButton.disabled = true;
+    
+            const firstnameInput = document.getElementById("firstname-input");
+            const lastnameInput = document.getElementById("lastname-input");
+            const phonenumberInput = document.getElementById("phonenumber-input");
+    
+            const data = {
+                firstname: firstnameInput.value,
+                lastname: lastnameInput.value,
+                phonenumber: phonenumberInput.value
+            };
+    
+            fetch("{{ url_for('member_center') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    refreshPage();
+
+                    // 信息更新成功
+                    // 在此添加您希望的任何成功处理逻辑
+                } else {
+                    // 更新失败
+                    // 在此添加您希望的任何错误处理逻辑
+                }
+    
+                // 重新启用编辑按钮和保存按钮
+                const editButtons = document.querySelectorAll("button[onclick^='editField']");
+                editButtons.forEach((button) => {
+                    button.disabled = false;
+                });
+                saveButton.disabled = false;
+            })
+            .catch(error => {
+                console.error("An error occurred:", error);
+    
+                // 在此添加任何适当的错误处理逻辑
+    
+                // 重新启用编辑按钮和保存按钮
+                const editButtons = document.querySelectorAll("button[onclick^='editField']");
+                editButtons.forEach((button) => {
+                    button.disabled = false;
+                });
+                saveButton.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

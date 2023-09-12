@@ -1,0 +1,211 @@
+.container {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    height: 80px; /* 调整header的高度 */
+    padding: 10px; /* 调整header的内边距 */
+  }
+
+h1 {
+    text-align: center;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* 添加文本居中对齐 */
+  height: 100vh;
+  margin-top: 10px; /* 调整上边距的数值 */
+
+}
+
+#cartItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px -10px; /* 调整上下间距 */
+}
+  
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 10px; /* 添加左侧间距 */
+    margin-right: 10px; /* 添加右侧间距 */
+    position: relative;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .cart-item {
+      flex-basis: calc(33.33% - 20px); /* 将每个.cart-item元素占据一行的1/3空间，减去margin的宽度 */
+      max-width: calc(33.33% - 20px); /* 设置每个.cart-item元素的最大宽度，减去margin的宽度 */
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .cart-item {
+      flex-basis: calc(50% - 20px); /* 将每个.cart-item元素占据一行的1/2空间，减去margin的宽度 */
+      max-width: calc(50% - 20px); /* 设置每个.cart-item元素的最大宽度，减去margin的宽度 */
+    }
+  }
+  
+
+.cart-item img {
+    width: 150px;
+    object-fit: contain;
+    height: 250px;
+    margin-top: 2px;
+}
+
+.cart-item .button-container {
+    position: relative;
+}
+
+.cart-item button {
+    margin-top: 2px;
+}
+
+.cart-item p.additional-info {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.web-shortcut {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(224, 99, 120);
+}
+
+.web-shortcut .logo {
+    width: 207px;
+    height: 80px;
+    margin-left: 175px;
+}
+
+.web-shortcut .logo a {
+    display: block;
+    height: 80px;
+    background: url(../images/logo.png);
+    background-size: 100% 100%;
+    font-size: 0;
+}
+
+.web-shortcut .container {
+    width: auto;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    text-align: center;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+}
+
+.web-shortcut .container li {
+    display: inline-block;
+    line-height: 52px;
+    color: #666;
+}
+
+.web-shortcut .container a {
+    margin: 0 16px;
+    color: #dcdcdc;
+    font-size: 20px;
+}
+
+.web-shortcut a:hover {
+    color: #27ba9b;
+}
+
+.web-shortcut li:last-child a {
+    margin-right: 0;
+}
+
+.web-shortcut .search {
+    position: relative;
+    width: 172px;
+    height: 30px;
+    margin-top: 24px;
+    margin-right: 25px;
+    background-color: orange;
+}
+
+.web-shortcut .search::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background: url(../images/Element.png) -80px -70px;
+}
+
+.web-shortcut .search input {
+    width: 172px;
+    height: 30px;
+    border-bottom: 2px solid;
+    padding-left: 31pt;
+}
+
+.web-shortcut .cart {
+    position: relative;
+    width: 23px;
+    height: 23px;
+    margin-top: 27px;
+    margin-right: 70px;
+    float: right;
+    background: url(../images/Element.png) -119px -69px;
+}
+
+.web-shortcut .cart span {
+    position: absolute;
+    top: -5px;
+    right: -12px;
+    width: 20px;
+    height: 14px;
+    background-color: #e26237;
+    font-size: 13px;
+    text-align: center;
+    line-height: 14px;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.total-price {
+    text-align: center;
+    clear: both;
+    margin-top: 10px;
+    width: 100%; /* 添加宽度为100% */
+}
+
+.flash-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .success {
+    background-color: green;
+    color: white;
+  }
+  
+  .error {
+    background-color: red;
+    color: white;
+  }
+
+
+  #map {
+    width: 80%;
+    height: 400px; /* 调整为适当的高度 */
+  }

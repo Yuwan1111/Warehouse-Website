@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Aujiga OrderPage</title>
+    <link rel="shortcut icon" href="" type="image/x-icon"/>
+    <meta name="description" content=""/> <!-- 内容使网站受浏览器关注-->
+    <meta name="keywords" content=""/>  <!-- 内容使得关键字搜索-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/order.css') }}"/>
+</head>
+<body>
+    <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('order') }}">Aujiga</a>
+            </h1>
+            <nav class="container">
+                <ul class="fr">
+                    <li><a href="{{ url_for('my_orders') }}"> My Orders</a>|</li>
+                    <li><a href="{{ url_for('member_center') }}">Member Center</a>|</li>
+                </ul>
+                {% if firstname %}
+                <p>Welcome, {{ firstname }}!</p>
+                {% endif %}
+            </nav>
+            <div class="search fl">
+                <input type="search" placeholder="Search item">
+            </div>
+            <div class="cart fl">
+                <a href="{{ url_for('shop_cart') }}" ></a>
+                <span id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="web-mains">
+            <div class="container">
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <div class="quantity-container">
+                        <button class="minus-button" onclick="subToCart({ imageSrc: '{{ url_for('static', filename='images/1.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/1.jpg') }}" data-price="2">-</button>
+                        <span class="quantity" id="quantity">0</span>
+                        <span class="quantity-zero" style="display: none;">0</span>
+                        <button class="plus-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/1.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/1.jpg') }}" data-price="2">+</button>
+                      </div>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/1.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/1.jpg') }}" data-price="2">Select</button>
+                </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Image">
+                   <P>$2</P>
+                   <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/2.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/2.jpg') }}" data-price="2">Select</button>
+              </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/3.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/3.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/3.jpg') }}" data-price="2">Select</button>
+                </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/4.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/4.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/4.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/5.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/5.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/5.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/6.jpg') }}" alt="Image">
+                    <P>$2</P>
+                  <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/6.jpg') }}', price: '$2' })" data-image="{{ url_for('static', filename='images/6.jpg') }}" data-price="2">Select</button>
+                </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/7.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/7.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/7.jpg') }}" data-price="2">Select</button>
+                </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/8.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/8.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/8.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/9.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/9.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/9.jpg') }}" data-price="2">Select</button>
+                </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/10.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/10.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/10.jpg') }}" data-price="2">Select</button>
+               </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/11.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/11.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/11.jpg') }}" data-price="2">Select</button>
+                   </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/12.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/12.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/12.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/13.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/13.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/13.jpg') }}" data-price="2">Select</button>
+                    </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/14.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/14.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/14.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/15.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/15.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/15.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/16.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/16.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/16.jpg') }}" data-price="2">Select</button>
+                 </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/17.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/17.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/17.jpg') }}" data-price="2">Select</button>
+                  </div>
+                <div class="image-container">
+                   <img src="{{ url_for('static', filename='images/18.jpg') }}" alt="Image">
+                    <P>$2</P>
+                    <button class="select-button" onclick="addToCart({ imageSrc: '{{ url_for('static', filename='images/18.jpg') }}', price: '2' })" data-image="{{ url_for('static', filename='images/18.jpg') }}" data-price="2">Select</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="web-foot">
+            <div class="container">
+                <a href="">Price cheap!</a>
+                <a href="">Item fresh!</a>
+                <a href="">Delivery Fast!</a>
+            </div>
+        </div>
+        <div class="web-copyright">
+            <div class="container">
+                <p>CopyRight @ Aujiga</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='scripts/orders_imgBig.js') }}"></script>
+</body>
+</html>

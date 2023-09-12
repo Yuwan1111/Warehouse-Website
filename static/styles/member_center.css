@@ -1,0 +1,108 @@
+.container {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+.web-shortcut {
+	height:90px;
+	display: flex;
+	align-items: center;
+	background-color: rgb(224, 99, 120);
+}
+
+.web-shortcut .logo {
+    width: 207px;
+    height: 80px;
+	margin-left: 175px;
+}
+
+.web-shortcut .logo a{
+	display: block;
+	height: 80px;
+	background: url(../images/logo.png);
+	background-size: 100% 100%;
+	font-size: 0;
+}
+  
+.web-shortcut .container {
+	width: auto;
+	margin-left: 100px;
+	margin-bottom: 20px;
+	text-align: center;
+	height: 52px;
+	display: flex;
+	justify-content: center;
+}
+  
+.web-shortcut .container li {
+	display: inline-block;
+	line-height: 52px;
+	color: #666;
+}
+  
+.web-shortcut .container a {
+	margin: 0 16px;
+	color: #dcdcdc;
+	font-size: 20px;
+}
+  
+.web-shortcut a:hover {
+	color: #27ba9b;
+}
+  
+.web-shortcut li:last-child a {
+	margin-right: 0;
+}
+
+.web-shortcut .search{
+	position: relative;
+	width: 172px;
+	height: 30px;
+	margin-top: 24px;
+	margin-right: 25px;
+	background-color: orange;
+}
+
+.web-shortcut .search::before{
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 2px;
+	width: 18px;
+	height: 18px;
+	background: url(../images/Element.png) -80px -70px;
+}
+
+.web-shortcut .search input{
+	width: 172px;
+	height: 30px;
+	border-bottom: 2px solid;
+	padding-left: 31pt;
+}
+
+.web-shortcut .cart {
+	position: relative;
+	width: 23px;
+	height: 23px;
+	margin-top: 27px;
+	margin-right: 70px;
+	float: right;
+	background: url(../images/Element.png) -119px -69px;
+}
+  
+.web-shortcut .cart span {
+	position: absolute;
+	top: -5px;
+	right: -12px;
+	width: 20px;
+	height: 14px;
+	background-color: #e26237;
+	font-size: 13px;
+	text-align: center;
+	line-height: 14px;
+	color: #fff;
+	border-radius: 7px;
+}
+main {
+    margin-left: 180px; /* 调整左侧边距，根据需要进行调整 */
+}

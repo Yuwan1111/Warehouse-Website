@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MY shopping-cart</title>
+    <link rel="shortcut icon" href="" type="image/x-icon"/>
+    <meta name="description" content=""/> <!-- 内容使网站受浏览器关注-->
+    <meta name="keywords" content=""/>  <!-- 内容使得关键字搜索-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/shop_cart.css') }}">
+</head>
+<body>
+     <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('order') }}">Aujiga</a>
+            </h1>
+            <nav class="container">
+                <ul class="fr">
+                    <li><a href="{{ url_for('order') }}"> Order </a> </li>
+                    <li><a href="{{ url_for('my_orders') }}"> My Orders</a>|</li>
+                    <li><a href="{{ url_for('member_center') }}">Member Center</a>|</li>
+                </ul>
+                {% if firstname %}
+                <p>Welcome, {{ firstname }}!</p>
+                {% endif %}
+            </nav>
+            <div class="search fl">
+                <input type="search" placeholder="Search item">
+            </div>
+        </div>
+    </header>
+    <h1>Shopping Cart</h1>
+    <div class="cart-container">
+        <div id="cartItems"></div>
+        <div class="button-container">
+            <button id="clearButton">Clear Cart</button>
+        </div>
+        <p>Total Price: <span id="totalPrice">$0.00</span></p>
+        <input type="text" id="addressInput" placeholder="Enter an address">
+        <button id="showAddressButton">Show Address</b>
+        <button id="locateButton">Get My Location</button>
+        <div id="map"></div>
+        
+
+        <p>Place More? Back to <a href="{{ url_for('order') }}"> Order </a>!</p>
+        <div id="paymentDetails" style="display: none;">
+            <h2>Payment Details</h2>
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" required>
+          
+            <label for="expirationDate">Expiration Date:</label>
+            <input type="text" id="expirationDate" required>
+          
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" required>
+          </div>
+          
+          <div class="button-container">
+            <button id="payOrderButton">PAY ORDER</button>
+          </div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/shop_cart.js') }}"></script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDziLSpKhvcou4r7R8Km0N3QwxsED8Uaug&libraries=places&callback=initMap">
+    </script>
+
+</body>
+</html>

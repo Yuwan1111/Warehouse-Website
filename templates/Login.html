@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}"> <!-- Link to your CSS file -->
+
+</head>
+<body>
+    <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('index') }}">Aujiga</a>
+            </h1>
+            <nav class="container">
+              <ul class="fr">
+                <li><a href="{{ url_for('login') }}">Login</a>|</li>
+                <li><a href="{{ url_for('register') }}">Register</a>|</li>
+              </ul>
+            </nav>
+            <div class="search fl"> 
+                <input type="search" placeholder="Search item">
+            </div>
+            <div class="cart fl">
+                <span>0</span>
+            </div>
+        </div>      
+    </header>
+    <div class="wrapper">
+        <div class="container">
+             <!-- 弹窗代码开始 -->
+            <div id="flash-message">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {{ messages[0] }}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <!-- 弹窗代码结束 -->
+            <h2>Login</h2>
+            <form id="login-form" method="POST" action="{{ url_for('login') }}">
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" id="login-button">Login</button>
+                <p>New member? <a href="{{ url_for('register') }}">Register</a> here!</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 弹窗Java开始 -->
+    <script>
+    // 处理登录按钮点击事件
+    document.getElementById('login-button').addEventListener('click', function() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // 发送登录请求
+        fetch('{{ url_for('login') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
+        })
+        .then(function(response) {
+            if (response.ok) {
+                // 登录成功
+                return response.text().then(function(message) {
+                    document.getElementById('flash-message').innerHTML = message;
+                    document.getElementById('flash-message').classList.remove('error');
+                    document.getElementById('flash-message').style.display = 'block';
+                });
+            } else {
+                // 登录失败
+                return response.text().then(function(errorMessage) {
+                    document.getElementById('flash-message').innerHTML = errorMessage;
+                    document.getElementById('flash-message').classList.add('error');
+                    document.getElementById('flash-message').style.display = 'block';
+                });
+            }
+        })
+        .catch(function(error) {
+            console.error('An error occurred:', error);
+        });
+    });
+    </script>
+    <!-- 弹窗Java结束 -->
+</body>
+</html>

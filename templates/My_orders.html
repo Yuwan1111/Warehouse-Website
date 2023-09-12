@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My History Order</title>
+    <link rel="shortcut icon" href="" type="image/x-icon"/>
+    <meta name="description" content=""/> <!-- 内容使网站受浏览器关注-->
+    <meta name="keywords" content=""/>  <!-- 内容使得关键字搜索-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/my_orders.css') }}">
+</head>
+<body>
+    <header>
+        <div class="web-shortcut">
+            <h1 class="logo fl">
+                <a href="{{ url_for('order') }}"></a>
+            </h1>
+            <nav class="container">
+                <ul class="fr">
+                    <li><a href="{{ url_for('order') }}">Order</a></li>
+                    <li><a href="{{ url_for('member_center') }}">Member Center</a>|</li>
+                </ul>
+                {% if firstname %}
+                <p>Welcome, {{ firstname }}!</p>
+                {% else %}
+                <p>Welcome, Guest!</p>
+                {% endif %}
+            </nav>
+            <div class="search fl">
+                <input type="search" placeholder="Search item">
+            </div>
+        </div>
+    </header>
+
+    <h1>My History Order</h1>
+    <h2>We send orders during workdays from 9am to 5pm. See you soon!</h2>
+
+    <div class="cart-container">
+        {% if order_details %}
+          {% for order in order_details %}
+            <h3>
+              <a href="#" class="order-toggle" data-order-id="{{ order['order_id'] }}">order_id: {{ order['order_id'] }}</a>
+            </h3>
+            <p>Total Price: ${{ order['total_price'] }}</p>
+            <p>Order Time: {{ order['order_time'] }}</p>
+      
+            <div class="order-details" data-order-id="{{ order['order_id'] }}">
+              {% if order['items'] %}
+                <ul class="item-list">
+                  {% for cart_item in order['items'] %}
+                    {% for item in cart_item %}
+                      <li class="item">
+                        <img src="{{ item['imageSrc'] }}" alt="">
+                        <p>Quantity: {{ item['quantity'] }}</p>
+                        <p>Price: ${{ item['price'] }}</p>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No history orders found.</p>
+        {% endif %}
+      
+        <p>Want to place more orders? <a href="{{ url_for('order') }}">Go back to Order</a>!</p>
+     </div>
+     <script src="{{ url_for('static', filename='scripts/my_orders.js') }}"></script>
+</body>
+</html>
